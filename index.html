@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNT Rate My Professor - University of North Texas</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="nav-brand">
+                <div class="logo">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span class="brand-text">UNT<span class="rate-text">Rate</span></span>
+                </div>
+                <p class="tagline">University of North Texas Professor Reviews</p>
+            </div>
+            <nav class="nav-menu">
+                <a href="#" class="nav-link active" data-page="home">Home</a>
+                <a href="#" class="nav-link" data-page="browse">Browse Professors</a>
+                <a href="#" class="nav-link" data-page="departments">Departments</a>
+                <a href="#" class="nav-link" data-page="add-professor">Add Professor</a>
+            </nav>
+            <div class="user-actions">
+                <a href="login.html" class="login-btn">Login</a>
+                <a href="signup.html" class="signup-btn">Sign Up</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Home Page -->
+        <section id="home-page" class="page active">
+            <!-- Hero Section -->
+            <div class="hero-section">
+                <div class="container">
+                    <div class="hero-content">
+                        <h1 class="hero-title">Find Your Perfect Professor at UNT</h1>
+                        <p class="hero-subtitle">Help your fellow Mean Green students make informed decisions about their courses and professors at the University of North Texas</p>
+                        
+                        <!-- Search Bar -->
+                        <div class="search-container">
+                            <div class="search-box">
+                                <i class="fas fa-search search-icon"></i>
+                                <input type="text" id="professor-search" placeholder="Search professors by name, department, or course...">
+                                <button class="search-btn">Search</button>
+                            </div>
+                            <div class="search-filters">
+                                <select id="department-filter" class="filter-select">
+                                    <option value="">All Departments</option>
+                                    <option value="computer-science">Computer Science & Engineering</option>
+                                    <option value="business">Business</option>
+                                    <option value="education">Education</option>
+                                    <option value="engineering">Engineering</option>
+                                    <option value="arts-sciences">Arts & Sciences</option>
+                                    <option value="health">Health & Public Service</option>
+                                    <option value="music">Music</option>
+                                    <option value="visual-arts">Visual Arts & Design</option>
+                                </select>
+                                <select id="rating-filter" class="filter-select">
+                                    <option value="">All Ratings</option>
+                                    <option value="5">5 Stars</option>
+                                    <option value="4">4+ Stars</option>
+                                    <option value="3">3+ Stars</option>
+                                    <option value="2">2+ Stars</option>
+                                    <option value="1">1+ Stars</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!-- Top Rated Professors -->
+            <div class="top-professors-section">
+                <div class="container">
+                    <h2 class="section-title">Top Rated Professors</h2>
+                    <div class="professors-grid" id="top-professors">
+                        <!-- Professor cards will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Reviews -->
+            <div class="recent-reviews-section">
+                <div class="container">
+                    <h2 class="section-title">Recent Reviews</h2>
+                    <div class="reviews-list" id="recent-reviews">
+                        <!-- Recent reviews will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Professor Profile Page -->
+        <section id="professor-page" class="page">
+            <div class="container">
+                <div class="professor-header">
+                    <button class="back-btn" onclick="showPage('home')">
+                        <i class="fas fa-arrow-left"></i> Back to Search
+                    </button>
+                    <div class="professor-info">
+                        <div class="professor-avatar">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <div class="professor-details">
+                            <h1 class="professor-name" id="prof-name">Dr. John Smith</h1>
+                            <p class="professor-dept" id="prof-dept">Computer Science & Engineering</p>
+                            <div class="professor-rating">
+                                <div class="rating-display">
+                                    <div class="stars" id="prof-stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                    </div>
+                                    <span class="rating-number" id="prof-rating">4.5</span>
+                                    <span class="rating-count" id="prof-count">(42 reviews)</span>
+                                </div>
+                                <button class="rate-btn" onclick="showRatingModal()">Rate Professor</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Professor Stats -->
+                <div class="professor-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Would Take Again</span>
+                        <span class="stat-value" id="take-again">78%</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Level of Difficulty</span>
+                        <span class="stat-value" id="difficulty">3.2/5</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Total Reviews</span>
+                        <span class="stat-value" id="total-reviews">42</span>
+                    </div>
+                </div>
+
+                <!-- Professor Tags -->
+                <div class="professor-tags">
+                    <h3>Most Helpful Tags</h3>
+                    <div class="tags-container" id="prof-tags">
+                        <!-- Tags will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Reviews Section -->
+                <div class="reviews-section">
+                    <div class="reviews-header">
+                        <h3>Student Reviews</h3>
+                        <div class="review-filters">
+                            <select id="review-sort" class="filter-select">
+                                <option value="newest">Newest First</option>
+                                <option value="oldest">Oldest First</option>
+                                <option value="highest">Highest Rated</option>
+                                <option value="lowest">Lowest Rated</option>
+                                <option value="helpful">Most Helpful</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="reviews-list" id="professor-reviews">
+                        <!-- Reviews will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Browse Professors Page -->
+        <section id="browse-page" class="page">
+            <div class="container">
+                <h1 class="page-title">Browse All Professors</h1>
+                <div class="browse-filters">
+                    <div class="filter-group">
+                        <label>Department:</label>
+                        <select id="browse-dept-filter" class="filter-select">
+                            <option value="">All Departments</option>
+                            <option value="computer-science">Computer Science & Engineering</option>
+                            <option value="business">Business</option>
+                            <option value="education">Education</option>
+                            <option value="engineering">Engineering</option>
+                            <option value="arts-sciences">Arts & Sciences</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Sort by:</label>
+                        <select id="browse-sort" class="filter-select">
+                            <option value="name">Name (A-Z)</option>
+                            <option value="rating">Highest Rated</option>
+                            <option value="reviews">Most Reviews</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="professors-grid" id="all-professors">
+                    <!-- All professors will be populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Rating Modal -->
+    <div id="rating-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Rate Professor</h3>
+                <button class="close-modal" onclick="closeRatingModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="rating-form">
+                    <div class="form-group">
+                        <label>Overall Rating</label>
+                        <div class="rating-input">
+                            <div class="stars-input" id="rating-stars">
+                                <i class="far fa-star" data-rating="1"></i>
+                                <i class="far fa-star" data-rating="2"></i>
+                                <i class="far fa-star" data-rating="3"></i>
+                                <i class="far fa-star" data-rating="4"></i>
+                                <i class="far fa-star" data-rating="5"></i>
+                            </div>
+                            <span class="rating-text">Click to rate</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Course Taken</label>
+                        <input type="text" id="course-taken" placeholder="e.g., CSCE 1030, MATH 1710" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Grade Received</label>
+                        <select id="grade-received" required>
+                            <option value="">Select Grade</option>
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
+                            <option value="F">F</option>
+                            <option value="W">W (Withdrew)</option>
+                            <option value="P">P (Pass)</option>
+                            <option value="NP">NP (No Pass)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Would you take this professor again?</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="take-again" value="yes">
+                                <span>Yes</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="take-again" value="no">
+                                <span>No</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Level of Difficulty</label>
+                        <div class="difficulty-scale">
+                            <input type="range" id="difficulty-range" min="1" max="5" value="3">
+                            <div class="scale-labels">
+                                <span>Easy</span>
+                                <span>Moderate</span>
+                                <span>Hard</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Tags (select all that apply)</label>
+                        <div class="tags-selection" id="tags-selection">
+                            <button type="button" class="tag-btn" data-tag="good-grader">Good Grader</button>
+                            <button type="button" class="tag-btn" data-tag="clear-communication">Clear Communication</button>
+                            <button type="button" class="tag-btn" data-tag="attendance-matters">Attendance Matters</button>
+                            <button type="button" class="tag-btn" data-tag="lots-of-assignments">Lots of Assignments</button>
+                            <button type="button" class="tag-btn" data-tag="helpful-office-hours">Helpful Office Hours</button>
+                            <button type="button" class="tag-btn" data-tag="engaging-lectures">Engaging Lectures</button>
+                            <button type="button" class="tag-btn" data-tag="fair-exams">Fair Exams</button>
+                            <button type="button" class="tag-btn" data-tag="tough-grader">Tough Grader</button>
+                            <button type="button" class="tag-btn" data-tag="extra-credit">Gives Extra Credit</button>
+                            <button type="button" class="tag-btn" data-tag="organized">Well Organized</button>
+                            <button type="button" class="tag-btn" data-tag="caring">Caring & Supportive</button>
+                            <button type="button" class="tag-btn" data-tag="deadline-heavy">Deadline Heavy</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Your Review</label>
+                        <textarea id="review-text" placeholder="Share your experience with this professor..." rows="5" required></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="cancel-btn" onclick="closeRatingModal()">Cancel</button>
+                        <button type="submit" class="submit-btn">Submit Review</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <div class="toast-content">
+            <i class="fas fa-check-circle"></i>
+            <span id="toast-message">Review submitted successfully!</span>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
